@@ -1,0 +1,191 @@
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Light.otf);
+	font-weight: lighter;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Regular.otf);
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Bold.otf);
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Black.otf);
+	font-weight: bolder;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-ExtraLight.otf);
+	font-weight: 200;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Light.otf);
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Regular.otf);
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Medium.otf);
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-SemiBold.otf);
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Bold.otf);
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Noto Serif';
+	src: url(./assets/fonts/NotoSerifJP-Black.otf);
+	font-weight: 900;
+}
+
+:root {
+	font-size: 16px;
+
+	--background-header: url(./assets/images/header-bg.jpg);
+
+	--font-family: 'Noto Serif';
+
+	--background-primary: #f4d1d5;
+	--light-accent: #eea4b5;
+	--main-brand: #90c1c2;
+	--dark-accent: #4d7b93;
+	--dark-shade: #dc3654;
+
+	--text-on-light: var(--dark-shade);
+	--text-on-light-secondary: var(--main-brand);
+	--text-on-dark: #ffffff;
+	--text-on-dark-secondary: #ffffcc;
+
+	--color-primary: #90c2cc;
+	--color-info: #da334c;
+	--color-default: #999999;
+	--color-success: #60b575;
+	--color-warning: #dea53d;
+	--color-danger: #f44336;
+	--color-danger-light: #f4433622;
+	--button-text-color: #ffffff;
+
+	--card-background: #fdf9f8;
+
+	--color-input: #555555;
+
+	--default-border-radius: 0.1875rem;
+}
+
+/* @media (prefers-color-scheme: dark) {
+	:root {
+	}
+} */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none;
+	scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: var(--background-primary);
+	color: var(--text-on-light);
+}
+
+body,
+input,
+textarea,
+button {
+	font-family: var(--font-family);
+	font-size: 1rem;
+	outline: none;
+	border: none;
+	box-shadow: none;
+}
+
+/* p {
+	line-height: 140%;
+} */
+
+/* ::-webkit-scrollbar {
+	width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+	background: #0000;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #f00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #d33;
+} */
+
+/*
+Artur Nestor Patricio12:06 AM
+#06e9f0
+azul de fundo
+#fe8c03
+laranja do karaoke
+Artur Nestor Patricio12:07 AM
+#fc0123
+vermelho da fonte menu esquerda
+#085fc8
+azul fundo modo noturno
+You12:09 AM
+http://colormind.io/bootstrap/
+Artur Nestor Patricio12:15 AM
+06E9F0
+5B7861
+546763
+1A5A71
+141718
+You12:15 AM
+Artur Nestor Patricio12:06 AM
+#06e9f0
+azul de fundo
+#fe8c03
+laranja do karaoke
+Artur Nestor Patricio12:07 AM
+#fc0123
+vermelho da fonte menu esquerda
+#085fc8
+azul fundo modo noturno
+Artur Nestor Patricio12:30 AM
+06E9F0
+D0D4DB
+FFFFFF
+F8AFA8
+000000
+*/
