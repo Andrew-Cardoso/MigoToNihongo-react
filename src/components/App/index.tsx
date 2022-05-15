@@ -1,7 +1,19 @@
 import {styled} from '@stitches/react';
-import {FolderNotchMinus, HouseSimple, IconContext, Infinity, User} from 'phosphor-react';
-import {useRef} from 'react';
-import {Link, Outlet} from 'react-router-dom';
+import {
+	Butterfly,
+	FolderNotchMinus,
+	HouseSimple,
+	IconContext,
+	Infinity,
+	Scroll,
+	TestTube,
+	User,
+} from 'phosphor-react';
+import {useEffect, useRef} from 'react';
+import {Link, Outlet, useParams, useSearchParams} from 'react-router-dom';
+import {TOKEN_KEY} from '../../environment';
+import {useAuth} from '../../_auth/hook';
+import {useToast} from '../../_toast/hook';
 
 const StyledContainer = styled('div', {
 	width: '100%',
@@ -41,7 +53,7 @@ const StyledNavbar = styled('nav', {
 	// color: '#FFF',
 
 	/* Simple version */
-	color: 'var(--text-on-light)',
+	color: 'var(--text-dark)',
 	borderRadius: '50%',
 
 	'& > a': {
@@ -50,6 +62,7 @@ const StyledNavbar = styled('nav', {
 		width: '100%',
 		height: '100%',
 		color: 'currentColor',
+		transition: 'color 250ms ease, background-color 250ms ease',
 	},
 
 	'& > a:first-child': {
@@ -82,43 +95,66 @@ const StyledNavbar = styled('nav', {
 		// backgroundColor: '#0002',
 
 		/* Simple version */
-		backgroundColor: '#90c1c288',
+		backgroundColor: 'var(--red-shade)',
+		color: 'var(--text-light)',
 	},
 });
 
-const StyledMain = styled('main', {
+const StyledMainContainer = styled('div', {
 	width: '100%',
 	height: '100%',
 	backgroundColor: 'transparent',
 });
 
-export const Template = () => {
+export const StyledMain = styled('main', {
+	width: '100%',
+	display: 'flex',
+	gap: '2rem',
+	padding: '2rem',
+	justifyContent: 'center',
+});
+
+export const App = () => {
 	const navRef = useRef<HTMLElement>(null);
+	const [searchParams] = useSearchParams();
+	const toast = useToast();
+	const auth = useAuth();
+
 	const rotate = (angle: number) => () =>
 		(navRef.current!.style.transform = `rotateZ(${angle}deg)`);
+
+	useEffect(() => {
+		const token = searchParams.get('token') ?? localStorage.getItem(TOKEN_KEY);
+		if (token) auth.signin(token);
+		const error = searchParams.get('error');
+		if (error) toast('error', error);
+	}, []);
+
 	return (
-		<StyledContainer>
+		<StyledContainer id='App'>
 			<StyledHeaderImage>
 				<IconContext.Provider value={{size: '1.5rem', color: 'currentColor'}}>
 					<StyledNavbar ref={navRef}>
 						<Link to='/' onClick={rotate(45)}>
-							<HouseSimple style={{transform: 'rotateZ(-45deg)'}} />
+							<Scroll style={{transform: 'rotateZ(-45deg)'}} />
 						</Link>
-						<Link to='/teste' onClick={rotate(-45)}>
+						<Link to='/profile' onClick={rotate(-45)}>
 							<User style={{transform: 'rotateZ(45deg)'}} />
 						</Link>
-						<Link to='/teste' onClick={rotate(135)}>
+						<Link to='/' onClick={rotate(135)}>
 							<Infinity style={{transform: 'rotateZ(-135deg)'}} />
 						</Link>
-						<Link to='/teste' onClick={rotate(-135)}>
-							<FolderNotchMinus style={{transform: 'rotateZ(135deg)'}} />
+						<Link to='/' onClick={rotate(-135)}>
+							<Butterfly style={{transform: 'rotateZ(135deg)'}} />
 						</Link>
 					</StyledNavbar>
 				</IconContext.Provider>
 			</StyledHeaderImage>
-			<StyledMain>
-				<Outlet />
-			</StyledMain>
+			<StyledMainContainer>
+				<StyledMain>
+					<Outlet />
+				</StyledMain>
+			</StyledMainContainer>
 		</StyledContainer>
 	);
 };

@@ -18,7 +18,7 @@ const checkboxCheck = keyframes({
 	'0%': {
 		width: '0',
 		height: '0',
-		borderColor: 'var(--color-success)',
+		borderColor: 'var(--text-light)',
 		transform: 'translate3d(0,0,0) rotate(45deg)',
 	},
 	'33%': {
@@ -29,7 +29,7 @@ const checkboxCheck = keyframes({
 	'100%': {
 		width: '.2rem',
 		height: '.5rem;   ',
-		borderColor: 'var(--color-success)',
+		borderColor: 'var(--text-light)',
 		transform: 'translate3d(0,-.5em,0) rotate(45deg)',
 	},
 });
@@ -43,7 +43,7 @@ const StyledCheckbox = styled('input', {
 		display: 'flex',
 		margin: '.6rem 0',
 		alignItems: 'center',
-		color: 'var(--color-input)',
+		color: 'var(--text-light)',
 		transition: 'color 250ms cubic-bezier(.4,.0,.23,1)',
 	},
 
@@ -62,7 +62,7 @@ const StyledCheckbox = styled('input', {
 		position: 'absolute',
 		bottom: 0,
 		fontStyle: 'normal',
-		color: 'var(--color-success)',
+		color: 'var(--text-light)',
 	},
 	'& + label > span': {
 		display: 'flex',
@@ -72,23 +72,23 @@ const StyledCheckbox = styled('input', {
 		width: '1rem',
 		height: '1rem',
 		background: 'transparent',
-		border: '.125rem solid var(--color-input)',
+		border: '.125rem solid var(--text-light)',
 		borderRadius: '.125rem',
 		cursor: 'pointer; ',
 		transition: 'all 250ms cubic-bezier(.4,.0,.23,1)',
 	},
 
 	'& + label:hover': {
-		color: 'var(--color-danger)',
+		color: 'var(--text-light-secondary)',
 	},
 	'&:focus + label': {
-		color: 'var(--color-danger)',
+		color: 'var(--text-light-secondary)',
 	},
 	'& + label:hover > span': {
-		borderColor: 'var(--color-danger)',
+		borderColor: 'var(--text-light-secondary)',
 	},
 	'&:focus + label > span': {
-		borderColor: 'var(--color-danger)',
+		borderColor: 'var(--text-light-secondary)',
 	},
 	'&:checked + label > ins': {
 		height: '100%',

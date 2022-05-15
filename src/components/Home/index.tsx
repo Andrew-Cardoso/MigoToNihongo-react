@@ -1,19 +1,21 @@
-import {styled} from '@stitches/react';
+import {useEffect, useState} from 'react';
+import {Post} from '../../models/post';
 import {AsideNav} from './Aside';
+import PostsContext from './_contexts/posts.context';
 import {PostsContainer} from './PostsContainer';
-
-const StyledContainer = styled('div', {
-	width: '100%',
-	display: 'flex',
-	gap: '1rem',
-	padding: '1rem',
-});
+// import {getPosts} from '../../services/api.service';
 
 export const Home = () => {
+	const [posts, setPosts] = useState<Post[]>([]);
+
+	useEffect(() => {
+		// getPosts().then(setPosts);
+	}, []);
+
 	return (
-		<StyledContainer>
+		<PostsContext.Provider value={posts}>
 			<AsideNav />
 			<PostsContainer />
-		</StyledContainer>
+		</PostsContext.Provider>
 	);
 };

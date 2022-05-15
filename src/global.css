@@ -72,28 +72,27 @@
 	--font-family: 'Noto Serif';
 
 	--background-primary: #f4d1d5;
-	--light-accent: #eea4b5;
-	--main-brand: #90c1c2;
-	--dark-accent: #4d7b93;
-	--dark-shade: #dc3654;
+	--main-brand: #4c7797;
 
-	--text-on-light: var(--dark-shade);
-	--text-on-light-secondary: var(--main-brand);
-	--text-on-dark: #ffffff;
-	--text-on-dark-secondary: #ffffcc;
+	--red-shade: #dc3654;
+	--red-accent: #b52342;
 
-	--color-primary: #90c2cc;
-	--color-info: #da334c;
-	--color-default: #999999;
-	--color-success: #60b575;
-	--color-warning: #dea53d;
-	--color-danger: #f44336;
-	--color-danger-light: #f4433622;
-	--button-text-color: #ffffff;
+	--main-light: #fff;
 
-	--card-background: #fdf9f8;
+	--text-dark: var(--red-accent);
+	--text-dark-secondary: var(--main-brand);
+	--text-darker: #121420;
+	--text-light: #ffffff;
+	--text-light-secondary: #ffffcc;
 
-	--color-input: #555555;
+	--color-info: #779bd7;
+	--color-warning: #fd5f00;
+	--color-danger: #ff709b;
+	--color-primary: #005792;
+	--color-default: #AAA;
+	--color-success: #57b0fb;
+
+	--text-danger: #ff709b;
 
 	--default-border-radius: 0.1875rem;
 }
@@ -109,6 +108,7 @@
 	box-sizing: border-box;
 	user-select: none;
 	scroll-behavior: smooth;
+	line-height: 140%;
 }
 
 html,
@@ -118,7 +118,7 @@ body,
 	height: 100vh;
 	overflow: hidden;
 	background: var(--background-primary);
-	color: var(--text-on-light);
+	color: var(--text-dark);
 }
 
 body,
@@ -132,11 +132,11 @@ button {
 	box-shadow: none;
 }
 
-/* p {
-	line-height: 140%;
-} */
+[data-shadow] {
+	box-shadow: #0005 0px 2px 4px 0px, #0005 0px 2px 16px 0px !important;
+}
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 0.8rem;
 }
 
@@ -145,47 +145,34 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #f00;
+	background: var(--red-shade);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #d33;
-} */
+	background: var(--red-accent);
+}
 
-/*
-Artur Nestor Patricio12:06 AM
-#06e9f0
-azul de fundo
-#fe8c03
-laranja do karaoke
-Artur Nestor Patricio12:07 AM
-#fc0123
-vermelho da fonte menu esquerda
-#085fc8
-azul fundo modo noturno
-You12:09 AM
-http://colormind.io/bootstrap/
-Artur Nestor Patricio12:15 AM
-06E9F0
-5B7861
-546763
-1A5A71
-141718
-You12:15 AM
-Artur Nestor Patricio12:06 AM
-#06e9f0
-azul de fundo
-#fe8c03
-laranja do karaoke
-Artur Nestor Patricio12:07 AM
-#fc0123
-vermelho da fonte menu esquerda
-#085fc8
-azul fundo modo noturno
-Artur Nestor Patricio12:30 AM
-06E9F0
-D0D4DB
-FFFFFF
-F8AFA8
-000000
-*/
+/* OVERRIDE TOAST STYLES */
+.toast {
+	color: var(--text-light-secondary);
+}
+.toast.info {
+	background: var(--color-info);
+}
+.toast.warning {
+	background: var(--color-warning);
+}
+.toast.error {
+	background: var(--color-danger);
+}
+.toast.success {
+	background: var(--color-success);
+}
+
+.toast.unauthorized {
+	background: var(--red-shade);
+}
+
+.toast .progress {
+	background: var(--text-light-secondary);
+}
