@@ -20,12 +20,24 @@ const StyledCard = styled('div', {
 		role: {
 			modal: {
 				width: 'clamp(20rem, 35rem, 96vw)',
-			}
-		}
-	}
+			},
+		},
+		size: {
+			sm: {
+				width: 'clamp(25rem, 35rem, 96vw)',
+			},
+			md: {
+				width: 'clamp(40rem, 60rem, 96vw)',
+			},
+			lg: {
+				width: '96vw',
+			},
+		},
+	},
 });
 interface Props extends Omit<ReactProps<'div'>, 'role'> {
 	role?: 'modal';
+	size?: 'sm' | 'md' | 'lg';
 }
 export const Card = (props: Props) => <StyledCard {...props} data-shadow />;
 

@@ -36,6 +36,13 @@ const StyledContainer = styled('section', {
 				},
 			},
 		},
+
+		file: {
+			true: {
+				width: 'fit-content',
+				marginBottom: '2rem',
+			},
+		},
 	},
 	'&:focus-within > label': {
 		color: 'var(--text-light-secondary)',

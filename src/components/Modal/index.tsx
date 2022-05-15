@@ -26,6 +26,8 @@ interface ModalProps {
 	show?: boolean;
 	saveButtonText?: string;
 	closeButtonText?: string;
+	disableSaveButton?: boolean;
+	size?: 'sm' | 'md' | 'lg',
 }
 
 import {createPortal} from 'react-dom';
@@ -40,18 +42,20 @@ export const Modal = ({
 	onClose,
 	saveButtonText,
 	closeButtonText,
+	disableSaveButton,
+	size,
 }: ModalProps) => {
 	const handleClose = (saved?: boolean) => () => onClose(saved ?? false);
 	return createPortal(
 		<ModalContainer show={show}>
-			<Card role='modal'>
+			<Card role='modal' size={size}>
 				<CardElements.Header>
 					<h1>{title}</h1>
 				</CardElements.Header>
 				<CardElements.Content>{children}</CardElements.Content>
 				<CardElements.Footer>
 					<ButtonContainer align='right'>
-						<Button onClick={handleClose(true)} variant='success'>
+						<Button onClick={handleClose(true)} variant='success' disabled={disableSaveButton}>
 							{saveButtonText ?? 'Salvar'}
 						</Button>
 						<Button onClick={handleClose()} variant='default'>

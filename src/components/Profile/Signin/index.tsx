@@ -50,7 +50,7 @@ export const Signin = () => {
 
 	const onClosePasswordRecoveryModal = async (saved: boolean) => {
 		if (!saved) return clearModal();
-		
+
 		const success = await api.forgotPassword(email);
 		if (!success) return;
 
@@ -60,38 +60,18 @@ export const Signin = () => {
 
 	return (
 		<>
-			<Modal
-				title='Recuperar Senha'
-				onClose={onClosePasswordRecoveryModal}
-				show={showModal}
-				saveButtonText='Redefinir senha'
-			>
-				<>
-					<Input
-						label='Confirme seu email'
-						onChange={(ev) => setEmail(ev.currentTarget.value)}
-						value={email}
-					/>
-					<p>
-						Clicando em <strong>Redefinir senha</strong> você receberá um email com um
-						link para redefinir sua senha, ele ficará ativo por 20 minutos.
-					</p>
-					<br />
-					<small style={{color: 'var(--text-light-secondary)'}}>
-						Caso não tenha recebido o email verifique sua caixa de spam
-					</small>
-				</>
-			</Modal>
 			<Form style={{paddingBottom: '0'}} onSubmit={handleSubmit(signinLocal)}>
 				<Input
 					label='email'
 					type='email'
+					autoComplete='email'
 					{...register('email', {required: {value: true, message: 'Digite seu email'}})}
 					errorMessage={formState.errors.email?.message}
 				/>
 				<Input
 					label='password'
 					type='password'
+					autoComplete='current-password'
 					{...register('password', {
 						required: {value: true, message: 'Digite sua senha'},
 					})}
@@ -129,6 +109,28 @@ export const Signin = () => {
 					</ButtonContainer>
 				</FormElements.Container>
 			</Form>
+			<Modal
+				title='Recuperar Senha'
+				onClose={onClosePasswordRecoveryModal}
+				show={showModal}
+				saveButtonText='Redefinir senha'
+			>
+				<>
+					<Input
+						label='Confirme seu email'
+						onChange={(ev) => setEmail(ev.currentTarget.value)}
+						value={email}
+					/>
+					<p>
+						Clicando em <strong>Redefinir senha</strong> você receberá um email com um
+						link para redefinir sua senha, ele ficará ativo por 20 minutos.
+					</p>
+					<br />
+					<small style={{color: 'var(--text-light-secondary)'}}>
+						Caso não tenha recebido o email verifique sua caixa de spam
+					</small>
+				</>
+			</Modal>
 		</>
 	);
 };

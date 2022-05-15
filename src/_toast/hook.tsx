@@ -1,8 +1,14 @@
 import {CheckCircle, Info, ShieldWarning, Warning, XCircle} from 'phosphor-react';
-import {toast} from 'react-toastify';
+import {toast, ToastOptions} from 'react-toastify';
+
+type Seconds = number;
 
 type ToastVariants = 'info' | 'warning' | 'error' | 'success' | 'unauthorized';
-type ToastFunction = (type: ToastVariants, message: string | JSX.Element) => void;
+type ToastFunction = (
+	type: ToastVariants,
+	message: string | JSX.Element,
+	overrideCloseTime?: Seconds,
+) => void;
 type ToastHook = () => Toast;
 
 const IconsEnum: Record<ToastVariants, JSX.Element> = {
@@ -15,10 +21,14 @@ const IconsEnum: Record<ToastVariants, JSX.Element> = {
 
 export type Toast = ToastFunction;
 
-export const useToast: ToastHook = () => (type, message) =>
-	toast(message, {
+export const useToast: ToastHook = () => (type, message, overrideCloseTime) => {
+	const options: ToastOptions = {
 		className: `toast ${type}`,
 		icon: IconsEnum[type],
 		progressClassName: 'progress',
 		toastId: type + message.toString().replace(/\s/g, '_'),
-	});
+	};
+
+	if (overrideCloseTime) options.autoClose = overrideCloseTime * 1000;
+	toast(message, options);
+};

@@ -6,47 +6,84 @@ import {useAuth} from '../../../_auth/hook';
 import {useToast} from '../../../_toast/hook';
 import {Button} from '../../Button';
 import {ButtonContainer} from '../../ButtonContainer';
-import {Checkbox} from '../../Checkbox';
+import {FileInput} from '../../FileInput';
 import {Form, FormElements} from '../../Form';
 import {Input} from '../../Input';
 
+type SignupForm = UserData & {confirmPassword: string};
+
 export const Signup = () => {
-	const {register, handleSubmit, formState} = useForm<UserData>();
+	const {register, handleSubmit, formState, getValues, setValue} = useForm<SignupForm>();
 
 	const auth = useAuth();
 	const api = useAuthApi();
 	const toast = useToast();
 
-	const signupLocal = (form: UserData) => {
-		console.log(form);
+	const signupLocal = async ({name, email, password, photo}: SignupForm) => {
+		if (await api.signupLocal({name, email, password, photo}))
+			toast(
+				'info',
+				<div>
+					<h4>Sua conta foi criada!</h4> <br />
+					<p>
+						Por favor, confirme sua conta pelo email que acabamos de enviar para{' '}
+						<strong>{email}</strong>
+					</p>
+					<br />
+					<small>Se não encontrar nosso email verifique sua caixa de spam</small>
+				</div>,
+				25,
+			);
 	};
+
+	const photoChanged = (src?: string) => setValue('photo', src ?? '');
 
 	return (
 		<Form style={{paddingBottom: '0'}} onSubmit={handleSubmit(signupLocal)}>
-			{/* <Input
+			<Input
 				label='email'
 				type='email'
+				autoComplete='email'
 				{...register('email', {required: {value: true, message: 'Digite seu email'}})}
 				errorMessage={formState.errors.email?.message}
 			/>
 			<Input
-				label='password'
+				label='nome'
+				type='text'
+				autoComplete='name'
+				{...register('name', {required: {value: true, message: 'Digite seu nome'}})}
+				errorMessage={formState.errors.name?.message}
+			/>
+			<Input
+				label='senha'
 				type='password'
-				{...register('password', {
-					required: {value: true, message: 'Digite sua senha'},
-				})}
+				autoComplete='new-password'
+				{...register('password', {required: {value: true, message: 'Defina uma senha'}})}
 				errorMessage={formState.errors.password?.message}
 			/>
-			<Checkbox label='Lembrar de mim' {...register('rememberMe')} defaultChecked={true} />
+			<Input
+				label='Confirmar senha'
+				type='password'
+				autoComplete='new-password'
+				{...register('confirmPassword', {
+					validate: (value) => value === getValues('password'),
+				})}
+				errorMessage={formState.errors.confirmPassword ? 'Senhas não coincidem' : undefined}
+			/>
+
+			<FileInput
+				label='Foto'
+				cropImage={true}
+				onChange={photoChanged}
+				value={getValues('photo')}
+			/>
 
 			<FormElements.Container>
 				<ButtonContainer>
 					<Button variant='success' type='submit'>
-						Entrar
+						Criar conta
 					</Button>
-					<Button variant='invert' type='button' role='button' onClick={forgotPassword}>
-						Esqueci minha senha
-					</Button>
+
 					<Button
 						type='button'
 						role='button'
@@ -58,7 +95,7 @@ export const Signup = () => {
 						<GoogleLogo size='1rem' />
 					</Button>
 				</ButtonContainer>
-			</FormElements.Container> */}
+			</FormElements.Container>
 		</Form>
 	);
 };

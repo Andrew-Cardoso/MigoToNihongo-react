@@ -12,6 +12,7 @@ const StyledButton = styled('button', {
 	border: 'none',
 	borderRadius: 'var(--default-border-radius)',
 	transition: 'filter .2s ease, color .2s ease',
+	cursor: 'pointer',
 	variants: {
 		position: {
 			left: {

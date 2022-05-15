@@ -39,7 +39,7 @@ const StyledTab = styled('article', {
 		active: {
 			true: {
 				color: 'var(--text-light-secondary)',
-				fontSize: '1.1rem'
+				fontSize: '1.1rem',
 			},
 		},
 	},
@@ -77,6 +77,7 @@ export const Tabs = ({tabs}: Props) => {
 
 	const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
 	const pointerRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		select(activeTab);
@@ -86,6 +87,8 @@ export const Tabs = ({tabs}: Props) => {
 
 		window.addEventListener('resize', fn);
 		app.addEventListener('scroll', fn);
+
+		containerRef.current?.scrollIntoView();
 
 		return () => {
 			window.removeEventListener('resize', fn);
@@ -112,7 +115,7 @@ export const Tabs = ({tabs}: Props) => {
 
 	return (
 		<Card>
-			<StyledContainer>
+			<StyledContainer ref={containerRef}>
 				<StyledTabsContainer>
 					{tabs.map((tab) => (
 						<StyledTab
