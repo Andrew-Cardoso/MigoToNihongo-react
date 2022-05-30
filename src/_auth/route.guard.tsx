@@ -5,15 +5,17 @@ import {useCurrentUser} from './hook';
 
 interface Props {
 	roles?: RolesEnum[];
+	navigateTo?: string;
+	notLogedIn?: boolean;
 	children: JSX.Element;
 }
-export const RequireAuth = ({children, roles}: Props) => {
+export const RequireAuth = ({children, roles, navigateTo, notLogedIn}: Props) => {
 	const user = useCurrentUser();
 	const location = useLocation();
 
-	return user && hasRole(user, roles) ? (
+	return (notLogedIn && !user) || (!notLogedIn && user && hasRole(user, roles)) ? (
 		children
 	) : (
-		<Navigate to='/' state={{from: location}} replace />
+		<Navigate to={navigateTo ?? '/'} state={{from: location}} replace />
 	);
 };

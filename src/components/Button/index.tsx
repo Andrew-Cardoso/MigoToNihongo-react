@@ -49,8 +49,8 @@ const StyledButton = styled('button', {
 				backgroundColor: '#0000',
 				color: 'var(--text-light)',
 				'&:hover': {
-					color: 'var(--text-light-secondary)'
-				}
+					color: 'var(--text-light-secondary)',
+				},
 			},
 			link: {
 				backgroundColor: 'transparent',
@@ -87,11 +87,17 @@ const StyledButton = styled('button', {
 			true: {
 				paddingTop: '0',
 				paddingBottom: '0',
+				display: 'flex',
+				placeItems: 'center',
 			},
 		},
 	},
-	'&:hover': {
+	'&:not(:disabled):hover': {
 		filter: 'brightness(1.1)',
+	},
+	'&:disabled': {
+		filter: 'brightness(.85)',
+		cursor: 'not-allowed',
 	},
 	compoundVariants: [
 		{
@@ -131,7 +137,7 @@ const StyledButton = styled('button', {
 		{
 			variant: 'invert',
 			css: {
-				fontSize: '.95rem'
+				fontSize: '.95rem',
 			},
 		},
 	],
@@ -143,8 +149,9 @@ interface Props extends ReactProps<'button'> {
 	icon?: boolean;
 	variant?: ColorVariant | 'link' | 'invert';
 }
-const ButtonComponent = ({variant, size, position, icon, ...props}: Props) => (
+const ButtonComponent = ({variant, size, position, icon, type, ...props}: Props) => (
 	<StyledButton
+		type={type ?? 'button'}
 		variant={variant ?? 'default'}
 		size={size ?? 'md'}
 		icon={icon}

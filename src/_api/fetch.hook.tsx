@@ -64,7 +64,7 @@ const handleErrors = async (
 		if (unauthorized) {
 			toast('unauthorized', toastHtml);
 			// TODO logout user
-			if (token) navigate('/profile');
+			if (token) navigate('/auth');
 		} else {
 			toast('error', toastHtml);
 		}

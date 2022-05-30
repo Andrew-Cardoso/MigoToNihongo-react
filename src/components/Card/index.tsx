@@ -84,39 +84,35 @@ const StyledFooter = styled('footer', {
 	},
 });
 
-const StyledFlexContent = styled('section', {
-	display: 'grid',
-	justifyContent: 'left',
-	placeItems: 'left',
-	rowGap: '.5rem',
-	columnGap: '1rem',
-	padding: '1rem 0',
-	gridTemplateColumns: 'max-content 1fr',
-});
+// const StyledFlexContent = styled('section', {
+// 	display: 'grid',
+// 	justifyContent: 'left',
+// 	placeItems: 'left',
+// 	rowGap: '.5rem',
+// 	columnGap: '1rem',
+// 	padding: '1rem 0',
+// 	gridTemplateColumns: 'max-content 1fr',
+// });
 
-const StyledFlexParagraph = styled('p', {
-	color: 'var(--text-light)',
-	fontSize: '1.1rem',
-	display: 'flex',
-	gap: '.5rem',
-	width: '100%',
-	height: '100%',
-	alignContent: 'center',
-	alignItems: 'center',
-	justifyContent: 'flex-start',
-	justifyItems: 'flex-start',
+// const StyledFlexParagraph = styled('p', {
+// 	color: 'var(--text-light)',
+// 	fontSize: '1.1rem',
+// 	display: 'flex',
+// 	gap: '.5rem',
+// 	width: '100%',
+// 	height: '100%',
+// 	alignContent: 'center',
+// 	alignItems: 'center',
+// 	justifyContent: 'flex-start',
+// 	justifyItems: 'flex-start',
 
-	'&:nth-child(odd)': {
-		fontWeight: 'bold',
-	},
-});
+// 	'&:nth-child(odd)': {
+// 		fontWeight: 'bold',
+// 	},
+// });
 
 export const CardElements = {
 	Header: StyledHeader,
 	Content: StyledMainContent,
-	Flex: {
-		Container: StyledFlexContent,
-		Paragraph: StyledFlexParagraph,
-	},
 	Footer: StyledFooter,
 };

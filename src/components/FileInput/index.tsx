@@ -1,12 +1,12 @@
 import {styled} from '@stitches/react';
-import React, {BaseSyntheticEvent, ChangeEventHandler, useState} from 'react';
+import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 import {ReactProps} from '../../types/helper.types';
 import {toBase64} from '../../utils/image';
 import {Avatar} from '../Avatar';
 import {CropImage} from '../Crop';
 import {FormElements} from '../Form';
 
-interface FileInputProps {
+interface FileInputProps extends Omit<ReactProps<'input'>, 'onChange' | 'value' | 'label'> {
 	label: string;
 	onChange: (image: string) => any;
 	value: string;
@@ -39,6 +39,10 @@ export const FileInput: FileInput = React.forwardRef(
 		const [imageSrc, setImageSrc] = useState<string | undefined>(value);
 		const [imageToCrop, setImageToCrop] = useState<string | boolean>(false);
 
+		useEffect(() => {
+			setImageSrc(value);
+		}, [value]);
+
 		const handleUpload = async ({target}: BaseSyntheticEvent) => {
 			if (!target.files?.[0]) return;
 
@@ -56,7 +60,7 @@ export const FileInput: FileInput = React.forwardRef(
 			setImageToCrop(false);
 			if (src) onChange(src);
 		};
-
+		
 		return (
 			<>
 				<FormElements.Container file>
@@ -67,7 +71,7 @@ export const FileInput: FileInput = React.forwardRef(
 							{...props}
 							ref={ref}
 							type='file'
-							title='teste'
+							title={label}
 							onChange={handleUpload}
 						/>
 					</StyledFileContainer>

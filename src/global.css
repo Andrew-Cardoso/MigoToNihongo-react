@@ -95,6 +95,9 @@
 	--text-danger: #ff709b;
 
 	--default-border-radius: 0.1875rem;
+
+	--input-disabled-color: #333;
+	--input-disabled-bg: #FFF6;
 }
 
 /* @media (prefers-color-scheme: dark) {

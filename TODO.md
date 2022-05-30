@@ -1,10 +1,9 @@
-# Logout user on Unauthorized
+# Loading Spinner where server calls are made
 
-# Listen to Route Changes to define rotation of menu, instead of onclick events
+# Add Text Ballons
 
-# Show Login Or Profile depending on user is logged or not
+# Lazy Routes and Not Used Components
 
+# Add Admin Route
 
-# Bug on password confirmation
-
-# create resend verification email
+# Logout user on Unauthorized or Forbidden... maybe?

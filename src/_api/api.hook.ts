@@ -1,15 +1,17 @@
 import {BACKEND_URL} from '../environment';
 import {useFetch} from './fetch.hook';
 import {RolesEnum, UnapprovedComment, User} from './models/admin';
-import {Credentials, JWT, ResetPasswordData, UserData} from './models/auth';
+import {Credentials, JWT, ResetPasswordData, UpdatedUser, UserData} from './models/auth';
 import {Comment, Post, PostData} from './models/posts';
 
 interface AuthApi {
 	signinLocal: (credentials: Credentials) => Promise<JWT>;
 	signupLocal: (user: UserData) => Promise<void | boolean>;
-	sendVerificationEmail: (email: string) => Promise<void | boolean>;
 	forgotPassword: (email: string) => Promise<void | boolean>;
-	resetPassword: (data: ResetPasswordData) => Promise<void | boolean>;
+	validateResetToken: (email: string, token: string) => Promise<void | boolean>;
+	resetPassword: (data: ResetPasswordData) => Promise<JWT>;
+	getUserPhoto: () => Promise<{photo?: string}>;
+	updateUser: (user: UpdatedUser) => Promise<JWT | boolean | void>;
 	signinGoogle: () => void | never;
 }
 
@@ -33,11 +35,13 @@ export const useAuthApi = (): AuthApi => {
 	const request = useFetch();
 	return {
 		signinLocal: (credentials: Credentials) => request('auth/sign-in', 'POST', credentials),
+		getUserPhoto: () => request('auth/user-photo'),
 		signupLocal: (user: UserData) => request('auth/sign-up', 'POST', user),
-		sendVerificationEmail: (email: string) =>
-			request('auth/send-verification-email', 'POST', {email}),
 		forgotPassword: (email: string) => request('auth/forgot-password', 'POST', {email}),
+		validateResetToken: (email: string, token: string) =>
+			request(`auth/validate-reset-token?email=${email}&token=${token}`),
 		resetPassword: (data: ResetPasswordData) => request('auth/reset-password', 'POST', data),
+		updateUser: (user: UpdatedUser) => request('auth/update-user', 'PUT', user),
 		signinGoogle: () => window.location.replace(`${BACKEND_URL}auth/google/sign-in`),
 	};
 };

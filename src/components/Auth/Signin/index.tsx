@@ -60,7 +60,7 @@ export const Signin = () => {
 
 	return (
 		<>
-			<Form style={{paddingBottom: '0'}} onSubmit={handleSubmit(signinLocal)}>
+			<Form onSubmit={handleSubmit(signinLocal)}>
 				<Input
 					label='email'
 					type='email'
@@ -69,7 +69,7 @@ export const Signin = () => {
 					errorMessage={formState.errors.email?.message}
 				/>
 				<Input
-					label='password'
+					label='senha'
 					type='password'
 					autoComplete='current-password'
 					{...register('password', {
@@ -89,7 +89,7 @@ export const Signin = () => {
 							Entrar
 						</Button>
 						<Button
-							variant='invert'
+							variant='default'
 							type='button'
 							role='button'
 							onClick={forgotPassword}
@@ -113,7 +113,7 @@ export const Signin = () => {
 				title='Recuperar Senha'
 				onClose={onClosePasswordRecoveryModal}
 				show={showModal}
-				saveButtonText='Redefinir senha'
+				saveButtonText='Recuperar senha'
 			>
 				<>
 					<Input

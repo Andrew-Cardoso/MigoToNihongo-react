@@ -2,7 +2,6 @@ import {GoogleLogo} from 'phosphor-react';
 import {useForm} from 'react-hook-form';
 import {useAuthApi} from '../../../_api/api.hook';
 import {UserData} from '../../../_api/models/auth';
-import {useAuth} from '../../../_auth/hook';
 import {useToast} from '../../../_toast/hook';
 import {Button} from '../../Button';
 import {ButtonContainer} from '../../ButtonContainer';
@@ -13,14 +12,18 @@ import {Input} from '../../Input';
 type SignupForm = UserData & {confirmPassword: string};
 
 export const Signup = () => {
-	const {register, handleSubmit, formState, getValues, setValue} = useForm<SignupForm>();
-
-	const auth = useAuth();
+	const {register, handleSubmit, formState, getValues, setValue, watch, trigger, reset} =
+		useForm<SignupForm>();
 	const api = useAuthApi();
 	const toast = useToast();
 
+	watch((_, {name}) => {
+		if (!['password', 'confirmPassword'].includes(name ?? '')) return;
+		formState.touchedFields.confirmPassword && trigger('confirmPassword');
+	});
+
 	const signupLocal = async ({name, email, password, photo}: SignupForm) => {
-		if (await api.signupLocal({name, email, password, photo}))
+		if (await api.signupLocal({name, email, password, photo})) {
 			toast(
 				'info',
 				<div>
@@ -34,12 +37,14 @@ export const Signup = () => {
 				</div>,
 				25,
 			);
+			reset();
+		}
 	};
 
 	const photoChanged = (src?: string) => setValue('photo', src ?? '');
 
 	return (
-		<Form style={{paddingBottom: '0'}} onSubmit={handleSubmit(signupLocal)}>
+		<Form onSubmit={handleSubmit(signupLocal)}>
 			<Input
 				label='email'
 				type='email'
@@ -76,6 +81,7 @@ export const Signup = () => {
 				cropImage={true}
 				onChange={photoChanged}
 				value={getValues('photo')}
+				accept='image/*'
 			/>
 
 			<FormElements.Container>

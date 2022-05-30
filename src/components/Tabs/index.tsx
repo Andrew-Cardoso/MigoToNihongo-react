@@ -25,16 +25,6 @@ const StyledTab = styled('article', {
 	transition: 'color 300ms ease, font-size 300ms ease',
 	marginBottom: '1rem',
 
-	// '&:not(:first-child):before': {
-	// 	content: '""',
-	// 	width: '80%',
-	// 	height: '1px',
-	// 	background: 'linear-gradient(to left, #fff0, var(--text-light), #fff0)',
-	// 	position: 'absolute',
-	// 	top: '0',
-	// 	left: '10%',
-	// },
-
 	variants: {
 		active: {
 			true: {

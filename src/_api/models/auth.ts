@@ -17,3 +17,10 @@ export interface UserData {
 export interface ResetPasswordData extends Credentials {
 	token: string;
 }
+
+export interface UpdatedUser {
+	currentPassword?: string;
+	password?: string;
+	name?: string;
+	photo?: string;
+}

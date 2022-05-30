@@ -1,15 +1,16 @@
 import {useEffect, useState} from 'react';
-import {Post} from '../../models/post';
 import {AsideNav} from './Aside';
 import PostsContext from './_contexts/posts.context';
 import {PostsContainer} from './PostsContainer';
-// import {getPosts} from '../../services/api.service';
+import {Post} from '../../_api/models/posts';
+import {usePostsApi} from '../../_api/api.hook';
 
 export const Home = () => {
+	const api = usePostsApi();
 	const [posts, setPosts] = useState<Post[]>([]);
 
 	useEffect(() => {
-		// getPosts().then(setPosts);
+		api.getPosts().then((data) => setPosts(data));
 	}, []);
 
 	return (

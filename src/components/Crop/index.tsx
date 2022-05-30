@@ -1,9 +1,16 @@
 import {useRef, useState} from 'react';
 import ReactCrop, {Crop} from 'react-image-crop';
-import {Button} from '../Button';
 import {Modal} from '../Modal';
 
 import 'react-image-crop/dist/ReactCrop.css';
+import {styled} from '@stitches/react';
+
+const GridContainer = styled('div', {
+	width: '100%',
+	height: '100%',
+	display: 'grid',
+	placeItems: 'center',
+});
 
 const croppedImageToBase64 = (image: HTMLImageElement, crop: Crop) => {
 	const canvas = document.createElement('canvas');
@@ -59,9 +66,11 @@ export const CropImage = ({show, src, onClose}: Props) => {
 			disableSaveButton={!crop}
 			size='md'
 		>
-			<ReactCrop crop={crop} onChange={setCrop} aspect={1 / 1} circularCrop={true}>
-				<img src={src} ref={imgRef} />
-			</ReactCrop>
+			<GridContainer>
+				<ReactCrop crop={crop} onChange={setCrop} aspect={1 / 1} circularCrop={true}>
+					<img src={src} ref={imgRef} />
+				</ReactCrop>
+			</GridContainer>
 		</Modal>
 	);
 };

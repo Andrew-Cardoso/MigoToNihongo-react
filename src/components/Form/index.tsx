@@ -4,14 +4,24 @@ import {ReactProps} from '../../types/helper.types';
 const StyledForm = styled('form', {
 	width: '100%',
 	height: 'auto',
-	padding: '2rem',
+	padding: '0 2rem',
 	display: 'flex',
 	flexFlow: 'column',
 	gap: '1rem',
 	borderRadius: 'var(--default-border-radius)',
+
+	variants: {
+		standalone: {
+			true: {
+				padding: '2rem',
+			},
+		},
+	},
 });
 
-interface Props extends ReactProps<'form'> {}
+interface Props extends ReactProps<'form'> {
+	standalone?: boolean;
+}
 export const Form = (props: Props) => <StyledForm {...props} />;
 
 const StyledContainer = styled('section', {
@@ -22,7 +32,33 @@ const StyledContainer = styled('section', {
 	gap: '.5rem',
 	variants: {
 		invalid: {
+			true: {},
+			false: {},
+		},
+		file: {
 			true: {
+				width: 'fit-content',
+				marginBottom: '2rem',
+			},
+		},
+		disabled: {
+			true: {
+				'& > input': {
+					color: 'var(--input-disabled-color)',
+					backgroundColor: 'var(--input-disabled-bg)',
+					cursor: 'not-allowed',
+					borderColor: 'var(--input-disabled-color)'
+				},
+			},
+			false: {},
+		},
+	},
+
+	compoundVariants: [
+		{
+			disabled: false,
+			invalid: true,
+			css: {
 				'& > input': {
 					borderWidth: 'thin thin thin .85rem',
 					borderColor: 'var(--text-danger)',
@@ -36,21 +72,19 @@ const StyledContainer = styled('section', {
 				},
 			},
 		},
-
-		file: {
-			true: {
-				width: 'fit-content',
-				marginBottom: '2rem',
+		{
+			disabled: false,
+			css: {
+				'&:focus-within > label': {
+					color: 'var(--text-light-secondary)',
+				},
+				'&:focus-within > input': {
+					borderWidth: 'thin thin thin .85rem',
+					borderColor: 'var(--text-light-secondary)',
+				},
 			},
 		},
-	},
-	'&:focus-within > label': {
-		color: 'var(--text-light-secondary)',
-	},
-	'&:focus-within > input': {
-		borderWidth: 'thin thin thin .85rem',
-		borderColor: 'var(--text-light-secondary)',
-	},
+	],
 });
 
 const StyledInput = styled('input', {

@@ -1,19 +1,13 @@
 import {styled} from '@stitches/react';
-import {
-	Butterfly,
-	FolderNotchMinus,
-	HouseSimple,
-	IconContext,
-	Infinity,
-	Scroll,
-	TestTube,
-	User,
-} from 'phosphor-react';
-import {useEffect, useRef} from 'react';
-import {Link, Outlet, useParams, useSearchParams} from 'react-router-dom';
+import {IconContext, Key, Pencil, Scroll, UserGear} from 'phosphor-react';
+import {useEffect, useRef, useState} from 'react';
+import {Link, Outlet, useLocation, useSearchParams} from 'react-router-dom';
 import {TOKEN_KEY} from '../../environment';
 import {useAuth} from '../../_auth/hook';
+import {useAuthApi} from '../../_api/api.hook';
 import {useToast} from '../../_toast/hook';
+import {hasRole} from '../../_auth/has-role';
+import {RolesEnum} from '../../_api/models/admin';
 
 const StyledContainer = styled('div', {
 	width: '100%',
@@ -70,6 +64,9 @@ const StyledNavbar = styled('nav', {
 		borderTopLeftRadius: '100%',
 		padding: '.5rem 0 0 .5rem',
 	},
+	'& > a:first-child > svg': {
+		transform: 'rotateZ(-45deg)',
+	},
 
 	'& > a:nth-child(2)': {
 		borderBottom: 'thin solid currentColor',
@@ -77,11 +74,17 @@ const StyledNavbar = styled('nav', {
 		padding: '.5rem .5rem 0 0',
 		borderTopRightRadius: '100%',
 	},
+	'& > a:nth-child(2) > svg': {
+		transform: 'rotateZ(45deg)',
+	},
 
 	'& > a:nth-child(3)': {
 		borderRight: '0 solid currentColor',
 		padding: '0 0 .5rem .5rem',
 		borderBottomLeftRadius: '100%',
+	},
+	'& > a:nth-child(3) > svg': {
+		transform: 'rotateZ(-135deg)',
 	},
 
 	'& > a:nth-child(4)': {
@@ -90,13 +93,27 @@ const StyledNavbar = styled('nav', {
 		borderBottomRightRadius: '100%',
 	},
 
-	'& > a:hover': {
-		/* Japan version */
-		// backgroundColor: '#0002',
+	'& > a:nth-child(4) > svg': {
+		transform: 'rotateZ(135deg)',
+	},
 
-		/* Simple version */
+	'& > a:hover': {
 		backgroundColor: 'var(--red-shade)',
 		color: 'var(--text-light)',
+	},
+
+	variants: {
+		childNumber: {
+			2: {
+				gridTemplateColumns: '1fr',
+				gridTemplateRows: '1fr 1fr',
+
+				'& > a:nth-child(2)': {
+					borderBottom: 'thin solid transparent',
+					borderLeft: 'thin solid transparent',
+				},
+			},
+		},
 	},
 });
 
@@ -106,7 +123,7 @@ const StyledMainContainer = styled('div', {
 	backgroundColor: 'transparent',
 });
 
-export const StyledMain = styled('main', {
+const StyledMain = styled('main', {
 	width: '100%',
 	display: 'flex',
 	gap: '2rem',
@@ -115,38 +132,69 @@ export const StyledMain = styled('main', {
 });
 
 export const App = () => {
-	const navRef = useRef<HTMLElement>(null);
 	const [searchParams] = useSearchParams();
+	const location = useLocation();
 	const toast = useToast();
+	const api = useAuthApi();
 	const auth = useAuth();
 
-	const rotate = (angle: number) => () =>
-		(navRef.current!.style.transform = `rotateZ(${angle}deg)`);
+	const navRef = useRef<HTMLElement>(null);
+	const [rotateAngle, setRotateAngle] = useState(45);
 
-	useEffect(() => {
+	const onInit = () => {
 		const token = searchParams.get('token') ?? localStorage.getItem(TOKEN_KEY);
 		if (token) auth.signin(token);
 		const error = searchParams.get('error');
 		if (error) toast('error', error);
+	};
+
+	useEffect(() => {
+		onInit();
 	}, []);
+
+	useEffect(() => {
+		auth.token && api.getUserPhoto().then(auth.setUserPhoto);
+	}, [auth.token]);
+
+	useEffect(() => {
+		if (!navRef.current) return;
+
+		const activeLink = navRef.current.querySelector(`[href="${location.pathname}"]`);
+		if (!activeLink) setRotateAngle(45);
+
+		const i = [...navRef.current.children].indexOf(activeLink!);
+
+		let rotateAngle = 45;
+
+		if (i === 1) rotateAngle = -45;
+		if (i === 2) rotateAngle = 135;
+		if (i === 3) rotateAngle = -135;
+
+		setRotateAngle(rotateAngle);
+	}, [location]);
 
 	return (
 		<StyledContainer id='App'>
 			<StyledHeaderImage>
 				<IconContext.Provider value={{size: '1.5rem', color: 'currentColor'}}>
-					<StyledNavbar ref={navRef}>
-						<Link to='/' onClick={rotate(45)}>
-							<Scroll style={{transform: 'rotateZ(-45deg)'}} />
+					<StyledNavbar ref={navRef} style={{transform: `rotateZ(${rotateAngle}deg)`}}>
+						<Link to='/'>
+							<Scroll />
 						</Link>
-						<Link to='/profile' onClick={rotate(-45)}>
-							<User style={{transform: 'rotateZ(45deg)'}} />
-						</Link>
-						<Link to='/' onClick={rotate(135)}>
-							<Infinity style={{transform: 'rotateZ(-135deg)'}} />
-						</Link>
-						<Link to='/' onClick={rotate(-135)}>
-							<Butterfly style={{transform: 'rotateZ(135deg)'}} />
-						</Link>
+						{auth.user ? (
+							<Link to='/profile'>
+								<UserGear />
+							</Link>
+						) : (
+							<Link to='/auth'>
+								<Key />
+							</Link>
+						)}
+						{hasRole(auth.user, [RolesEnum.AUTHOR]) && (
+							<Link to='/quill'>
+								<Pencil />
+							</Link>
+						)}
 					</StyledNavbar>
 				</IconContext.Provider>
 			</StyledHeaderImage>
