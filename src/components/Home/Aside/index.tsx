@@ -1,7 +1,6 @@
 import {styled} from '@stitches/react';
 import {Scroll} from 'phosphor-react';
 import {useContext, useEffect, useRef} from 'react';
-import {Post} from '../../../models/post';
 import PostsContext from '../_contexts/posts.context';
 
 const StyledAside = styled('aside', {

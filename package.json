@@ -1,30 +1,34 @@
 {
-  "name": "migoto-frontend",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite --port 3456",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@js-temporal/polyfill": "^0.4.1",
-    "@stitches/react": "^1.2.8",
-    "phosphor-react": "^1.4.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-hook-form": "^7.31.1",
-    "react-image-crop": "^10.0.1",
-    "react-quill": "^2.0.0-beta1",
-    "react-router-dom": "6",
-    "react-toastify": "^9.0.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/react-image-crop": "^8.1.3",
-    "@vitejs/plugin-react": "^1.3.0",
-    "typescript": "^4.6.3",
-    "vite": "^2.9.7"
-  }
+	"name": "migoto-frontend",
+	"homepage": "https://andrew-cardoso.github.io/MigoToNihongo-react",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d build",
+		"dev": "vite --port 3456",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@js-temporal/polyfill": "^0.4.1",
+		"@stitches/react": "^1.2.8",
+		"phosphor-react": "^1.4.1",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-hook-form": "^7.31.1",
+		"react-image-crop": "^10.0.1",
+		"react-quill": "^2.0.0-beta1",
+		"react-router-dom": "6",
+		"react-toastify": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"@types/react-image-crop": "^8.1.3",
+		"@vitejs/plugin-react": "^1.3.0",
+		"gh-pages": "^4.0.0",
+		"typescript": "^4.6.3",
+		"vite": "^2.9.7"
+	}
 }
