@@ -7,6 +7,7 @@ import {RequireAuth} from './_auth/route.guard';
 import {ResetPassword} from './components/ResetPassword';
 import {Quill} from './components/Quill';
 import {RolesEnum} from './_api/models/admin';
+import {Admin} from './components/Admin';
 
 export const Routes = () => (
 	<BrowserRouter>
@@ -34,6 +35,14 @@ export const Routes = () => (
 					element={
 						<RequireAuth roles={[RolesEnum.AUTHOR]} navigateTo='/auth'>
 							<Quill />
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path='/admin'
+					element={
+						<RequireAuth roles={[RolesEnum.ADMIN]} navigateTo='/auth'>
+							<Admin />
 						</RequireAuth>
 					}
 				/>

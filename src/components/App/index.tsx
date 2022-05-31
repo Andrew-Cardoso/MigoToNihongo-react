@@ -1,5 +1,5 @@
 import {styled} from '@stitches/react';
-import {IconContext, Key, Pencil, Scroll, UserGear} from 'phosphor-react';
+import {IconContext, Key, Pencil, Scroll, ShieldStar, UserGear} from 'phosphor-react';
 import {useEffect, useRef, useState} from 'react';
 import {Link, Outlet, useLocation, useSearchParams} from 'react-router-dom';
 import {TOKEN_KEY} from '../../environment';
@@ -193,6 +193,11 @@ export const App = () => {
 						{hasRole(auth.user, [RolesEnum.AUTHOR]) && (
 							<Link to='/quill'>
 								<Pencil />
+							</Link>
+						)}
+						{hasRole(auth.user, [RolesEnum.ADMIN]) && (
+							<Link to='/admin'>
+								<ShieldStar />
 							</Link>
 						)}
 					</StyledNavbar>

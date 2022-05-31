@@ -5,6 +5,8 @@ export enum RolesEnum {
 	ADMIN = 'ADMIN',
 }
 
+export const ROLES = [RolesEnum.ADMIN, RolesEnum.AUTHOR];
+
 export const RolesView = {
 	[RolesEnum.ADMIN]: 'Administrador',
 	[RolesEnum.AUTHOR]: 'Autor',
