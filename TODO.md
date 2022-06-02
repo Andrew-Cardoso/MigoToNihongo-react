@@ -1,7 +1,3 @@
-## Bugs
-
-[] - Routes Are Being Loaded Before User JWT is Decoded - Put logic in AuthContext instead of AppComponent
-
 ## Features
 
 [] - Loading Spinner where server calls are made

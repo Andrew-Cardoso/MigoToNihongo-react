@@ -1,7 +1,8 @@
-import {createContext, ReactNode, useState} from 'react';
+import {createContext, ReactNode, useEffect, useState} from 'react';
 import {TOKEN_KEY} from '../environment';
 import {isExpired} from '../utils/temporal';
 import {CurrentUser} from '../_api/models/admin';
+import {useToast} from '../_toast/hook';
 
 const decode = (token: string): CurrentUser => {
 	const codedUserInfoUrl = token.split('.')[1];
@@ -16,6 +17,17 @@ const decode = (token: string): CurrentUser => {
 	const {sub: email, name, roles, expirationDate, signInType} = JSON.parse(jsonUserInfo);
 
 	return {email, name, roles, expirationDate, signInType};
+};
+
+const getCachedCredentials = (): [CurrentUser?, string?] => {
+	const params = new URLSearchParams(window.location.search);
+	const token = params.get('token') ?? localStorage.getItem(TOKEN_KEY);
+	if (!token) return [];
+	const user = decode(token);
+	if (isExpired(user.expirationDate)) return [];
+
+	localStorage.setItem(TOKEN_KEY, token);
+	return [user, token];
 };
 
 interface Context {
@@ -33,8 +45,9 @@ export const AuthContext = createContext<Context>({
 
 type Props = {children: ReactNode};
 export const AuthProvider = ({children}: Props) => {
-	const [user, setUser] = useState<CurrentUser | undefined>();
-	const [token, setToken] = useState<string | undefined>();
+	const [cachedUser, cachedToken] = getCachedCredentials();
+	const [user, setUser] = useState<CurrentUser | undefined>(cachedUser);
+	const [token, setToken] = useState<string | undefined>(cachedToken);
 
 	const setUserAndToken = (user?: CurrentUser, token?: string, rememberMe?: boolean) => {
 		setUser(user);

@@ -41,6 +41,7 @@ export interface User {
 	email: string;
 	photo: string;
 	roles: RolesEnum[];
+	signInType: SignInTypeEnum;
 }
 
 export interface UnapprovedComment {
