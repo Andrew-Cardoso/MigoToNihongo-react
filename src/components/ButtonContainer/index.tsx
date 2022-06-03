@@ -1,4 +1,4 @@
-import {styled} from '@stitches/react';
+import {styled} from '../../utils/breakpoints';
 import {ReactProps} from '../../types/helper.types';
 
 const StyledButtonContainer = styled('section', {
@@ -8,6 +8,10 @@ const StyledButtonContainer = styled('section', {
 	flexWrap: 'wrap',
 	gap: '1rem',
 
+	'@smartphone': {
+		gap: '.5rem',
+		justifyContent: 'space-between'
+	},
 	variants: {
 		icons: {
 			true: {
@@ -16,15 +20,15 @@ const StyledButtonContainer = styled('section', {
 		},
 		align: {
 			right: {
-				justifyContent: 'flex-end'
+				justifyContent: 'flex-end',
 			},
 			center: {
-				justifyContent: 'flex-start'
+				justifyContent: 'flex-start',
 			},
 			left: {
-				justifyContent: 'center'
+				justifyContent: 'center',
 			},
-		}
+		},
 	},
 });
 
@@ -32,6 +36,4 @@ interface Props extends ReactProps<'section'> {
 	icons?: boolean;
 	align?: 'right' | 'center' | 'left';
 }
-export const ButtonContainer = (props: Props) => (
-	<StyledButtonContainer {...props} />
-);
+export const ButtonContainer = (props: Props) => <StyledButtonContainer {...props} />;

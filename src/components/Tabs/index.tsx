@@ -1,4 +1,4 @@
-import {styled} from '@stitches/react';
+import {styled} from '../../utils/breakpoints';
 import {useEffect, useRef, useState} from 'react';
 import {Card} from '../Card';
 
@@ -49,6 +49,9 @@ const StyledTabOutlet = styled('article', {
 	display: 'grid',
 	placeItems: 'center',
 	padding: '2rem',
+	'@smartphone': {
+		padding: '1.5rem 1rem',
+	},
 });
 
 const Pointer = styled('div', {

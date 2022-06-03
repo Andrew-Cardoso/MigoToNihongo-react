@@ -63,7 +63,7 @@ const calculateAsideHeight = (el: HTMLElement | null) => {
 	el.style.height = `calc(100vh - ${top}px - 2rem)`;
 };
 
-export const AsideNav = () => {
+const AsideNav = () => {
 	const posts = useContext(PostsContext);
 	const asideRef = useRef<HTMLElement>(null);
 
@@ -95,3 +95,5 @@ export const AsideNav = () => {
 		</StyledAside>
 	);
 };
+
+export default AsideNav;

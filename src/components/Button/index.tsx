@@ -1,4 +1,4 @@
-import {styled} from '@stitches/react';
+import {styled} from '../../utils/breakpoints';
 import {memo} from 'react';
 import {ColorVariant, ElementSize, ReactProps} from '../../types/helper.types';
 
@@ -17,12 +17,21 @@ const StyledButton = styled('button', {
 		position: {
 			left: {
 				marginRight: 'auto',
+				// '@smartphone': {
+				// 	margin: 'unset',
+				// },
 			},
 			right: {
 				marginLeft: 'auto',
+				// '@smartphone': {
+				// 	margin: 'unset',
+				// },
 			},
 			center: {
 				margin: '0 auto',
+				// '@smartphone': {
+				// 	margin: 'unset',
+				// },
 			},
 			default: {},
 		},
@@ -78,6 +87,9 @@ const StyledButton = styled('button', {
 			md: {
 				fontSize: '.9rem',
 				padding: '.75rem 1.88rem',
+				'@smartphone': {
+					padding: '.5rem 1.2rem',
+				},
 			},
 			lg: {
 				padding: '1rem 2.5rem',
@@ -112,6 +124,9 @@ const StyledButton = styled('button', {
 			size: 'md',
 			css: {
 				padding: '0 1rem',
+				'@smartphone': {
+					padding: '.75rem',
+				},
 			},
 		},
 		{

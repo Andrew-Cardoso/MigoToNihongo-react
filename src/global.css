@@ -105,6 +105,12 @@
 	}
 } */
 
+@media only screen and (max-device-width: 480px) {
+	:root {
+		font-size: 14px;
+	}
+}
+
 * {
 	margin: 0;
 	padding: 0;

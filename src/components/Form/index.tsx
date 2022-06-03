@@ -1,4 +1,4 @@
-import {styled} from '@stitches/react';
+import {styled} from '../../utils/breakpoints';
 import {ReactProps} from '../../types/helper.types';
 
 const StyledForm = styled('form', {
@@ -9,6 +9,10 @@ const StyledForm = styled('form', {
 	flexFlow: 'column',
 	gap: '1rem',
 	borderRadius: 'var(--default-border-radius)',
+
+	'@smartphone': {
+		padding: '0 1rem',
+	},
 
 	variants: {
 		standalone: {
@@ -47,7 +51,7 @@ const StyledContainer = styled('section', {
 					color: 'var(--input-disabled-color)',
 					backgroundColor: 'var(--input-disabled-bg)',
 					cursor: 'not-allowed',
-					borderColor: 'var(--input-disabled-color)'
+					borderColor: 'var(--input-disabled-color)',
 				},
 			},
 			false: {},
@@ -116,6 +120,9 @@ const StyledError = styled('span', {
 	minHeight: '1.25rem',
 	transform: 'translateX(-2rem)',
 	filter: 'opacity(.1)',
+	'@smartphone': {
+		minHeight: '1rem',
+	}
 });
 
 export const FormElements = {

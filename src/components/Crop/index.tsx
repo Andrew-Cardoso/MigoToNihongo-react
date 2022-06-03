@@ -68,7 +68,7 @@ export const CropImage = ({show, src, onClose}: Props) => {
 		>
 			<GridContainer>
 				<ReactCrop crop={crop} onChange={setCrop} aspect={1 / 1} circularCrop={true}>
-					<img src={src} ref={imgRef} />
+					<img src={src} ref={imgRef} style={{maxHeight: '80vh', maxWidth: '80vw'}} />
 				</ReactCrop>
 			</GridContainer>
 		</Modal>

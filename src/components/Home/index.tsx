@@ -1,13 +1,17 @@
-import {useEffect, useState} from 'react';
-import {AsideNav} from './Aside';
+import {lazy, Suspense, useEffect, useState} from 'react';
 import PostsContext from './_contexts/posts.context';
 import {PostsContainer} from './PostsContainer';
 import {Post} from '../../_api/models/posts';
 import {usePostsApi} from '../../_api/api.hook';
+import {Spinner} from '../Spinner';
+
+const AsideNav = lazy(() => import('./Aside'));
+const HiddenNav = lazy(() => import('./HiddenNav'));
 
 export const Home = () => {
 	const api = usePostsApi();
 	const [posts, setPosts] = useState<Post[]>([]);
+	const [screenWidth] = useState(window.screen.availWidth);
 
 	useEffect(() => {
 		api.getPosts().then((data) => setPosts(data));
@@ -15,7 +19,15 @@ export const Home = () => {
 
 	return (
 		<PostsContext.Provider value={posts}>
-			<AsideNav />
+			{screenWidth > 480 ? (
+				<Suspense fallback={<Spinner />}>
+					<AsideNav />
+				</Suspense>
+			) : (
+				<Suspense fallback={<Spinner />}>
+					<HiddenNav />
+				</Suspense>
+			)}
 			<PostsContainer />
 		</PostsContext.Provider>
 	);

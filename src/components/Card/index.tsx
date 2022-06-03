@@ -1,16 +1,21 @@
-import {styled} from '@stitches/react';
+import {styled} from '../../utils/breakpoints';
 import {ReactProps} from '../../types/helper.types';
 
 const StyledCard = styled('div', {
 	width: '100%',
 	height: 'auto',
 	borderRadius: 'var(--default-border-radius)',
-	padding: '2rem',
 	display: 'flex',
 	flexFlow: 'column',
-	gap: '2rem',
 	backgroundColor: 'var(--main-brand)',
 	color: 'var(--text-light)',
+	padding: '2rem',
+	gap: '2rem',
+
+	'@smartphone': {
+		padding: '1rem',
+		gap: '1rem',
+	},
 
 	'& > footer': {
 		marginTop: 'auto',
@@ -20,6 +25,9 @@ const StyledCard = styled('div', {
 		role: {
 			modal: {
 				width: 'clamp(20rem, 35rem, 96vw)',
+				'@smartphone': {
+					width: '98vw'
+				}
 			},
 		},
 		size: {
@@ -58,6 +66,13 @@ const StyledHeader = styled('header', {
 	'& > h1': {
 		textAlign: 'center',
 		fontSize: '1.6rem',
+	},
+
+	'@smartphone': {
+		paddingBottom: '1rem',
+		'& > h1': {
+			fontSize: '1.4rem',
+		},
 	},
 });
 
