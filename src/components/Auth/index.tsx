@@ -8,7 +8,7 @@ const AuthContainer = styled('div', {
 	maxWidth: '700px',
 });
 
-export const Auth = () => (
+const Auth = () => (
 	<AuthContainer>
 		<Tabs
 			tabs={[
@@ -18,3 +18,5 @@ export const Auth = () => (
 		/>
 	</AuthContainer>
 );
+
+export default Auth;

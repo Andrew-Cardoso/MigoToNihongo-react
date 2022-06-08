@@ -16,7 +16,7 @@ const StyledContainer = styled('div', {
 	maxWidth: '1024px',
 });
 
-export const Quill = () => {
+const Quill = () => {
 	const api = usePostsApi();
 	const toast = useToast();
 	const [post, setPost] = useState<PostData>({content: '', title: '', linkText: ''});
@@ -76,3 +76,5 @@ export const Quill = () => {
 		</StyledContainer>
 	);
 };
+
+export default Quill;

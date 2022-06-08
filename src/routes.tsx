@@ -1,13 +1,16 @@
 import {BrowserRouter, Route, Routes as RouterRoutes} from 'react-router-dom';
 import {App} from './components/App';
 import {Home} from './components/Home';
-import {Auth} from './components/Auth';
-import {Profile} from './components/Profile';
 import {RequireAuth} from './_auth/route.guard';
-import {ResetPassword} from './components/ResetPassword';
-import {Quill} from './components/Quill';
 import {RolesEnum} from './_api/models/admin';
-import {Admin} from './components/Admin';
+import {lazy, Suspense} from 'react';
+import {Spinner} from './components/Spinner';
+
+const Profile = lazy(() => import('./components/Profile'));
+const Auth = lazy(() => import('./components/Auth'));
+const Quill = lazy(() => import('./components/Quill'));
+const Admin = lazy(() => import('./components/Admin'));
+const ResetPassword = lazy(() => import('./components/ResetPassword'));
 
 export const Routes = () => (
 	<BrowserRouter>
@@ -18,7 +21,9 @@ export const Routes = () => (
 					path='/auth'
 					element={
 						<RequireAuth notLogedIn={true} navigateTo='/profile'>
-							<Auth />
+							<Suspense fallback={<Spinner size='sm' />}>
+								<Auth />
+							</Suspense>
 						</RequireAuth>
 					}
 				/>
@@ -26,7 +31,9 @@ export const Routes = () => (
 					path='/profile'
 					element={
 						<RequireAuth navigateTo='/auth'>
-							<Profile />
+							<Suspense fallback={<Spinner size='sm' />}>
+								<Profile />
+							</Suspense>
 						</RequireAuth>
 					}
 				/>
@@ -34,7 +41,9 @@ export const Routes = () => (
 					path='/quill'
 					element={
 						<RequireAuth roles={[RolesEnum.AUTHOR]} navigateTo='/auth'>
-							<Quill />
+							<Suspense fallback={<Spinner size='sm' />}>
+								<Quill />
+							</Suspense>
 						</RequireAuth>
 					}
 				/>
@@ -42,7 +51,9 @@ export const Routes = () => (
 					path='/admin'
 					element={
 						<RequireAuth roles={[RolesEnum.ADMIN]} navigateTo='/auth'>
-							<Admin />
+							<Suspense fallback={<Spinner size='sm' />}>
+								<Admin />
+							</Suspense>
 						</RequireAuth>
 					}
 				/>
@@ -50,7 +61,9 @@ export const Routes = () => (
 					path='/reset-password'
 					element={
 						<RequireAuth notLogedIn={true} navigateTo='/profile'>
-							<ResetPassword />
+							<Suspense fallback={<Spinner size='sm' />}>
+								<ResetPassword />
+							</Suspense>
 						</RequireAuth>
 					}
 				/>

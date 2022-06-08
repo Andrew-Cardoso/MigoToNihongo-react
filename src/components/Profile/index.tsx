@@ -28,15 +28,15 @@ const StyledNamePhotoContainer = styled('section', {
 	gridTemplateColumns: '6rem 1fr',
 	'@smartphone': {
 		gridTemplateColumns: '1fr',
-		gridTemplateRows: '8rem 1fr'
-	}
+		gridTemplateRows: '8rem 1fr',
+	},
 });
 
 type UpdateUserForm = Omit<UpdatedUser, 'currentPassword'> & {confirmPassword?: string};
 type UpdateUserErrors = Partial<
 	Record<keyof Pick<UpdateUserForm, 'name' | 'confirmPassword'>, string>
 >;
-export const Profile = () => {
+const Profile = () => {
 	const api = useAuthApi();
 	const {user, signin, signout} = useAuth();
 	const [showPassword, togglePassword] = useState(false);
@@ -275,3 +275,5 @@ export const Profile = () => {
 		</>
 	);
 };
+
+export default Profile;

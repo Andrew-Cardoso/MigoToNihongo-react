@@ -28,7 +28,7 @@ interface ResetPasswordForm {
 	password: string;
 	confirmPassword: string;
 }
-export const ResetPassword = () => {
+const ResetPassword = () => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const {register, handleSubmit, formState, getValues, watch, trigger} =
@@ -109,3 +109,5 @@ export const ResetPassword = () => {
 		</StyledContainer>
 	);
 };
+
+export default ResetPassword;

@@ -7,15 +7,15 @@ const AdminContainer = styled('div', {
 	minWidth: '1024px',
 	maxWidth: '96vw',
 });
-export const Admin = () => {
-	return (
-		<AdminContainer>
-			<Tabs
-				tabs={[
-					['Usuários', <Users />],
-					['Comentários', <h1>Nao implementado ainda</h1>],
-				]}
-			/>
-		</AdminContainer>
-	);
-};
+const Admin = () => (
+	<AdminContainer>
+		<Tabs
+			tabs={[
+				['Usuários', <Users />],
+				['Comentários', <h1>Nao implementado ainda</h1>],
+			]}
+		/>
+	</AdminContainer>
+);
+
+export default Admin;
