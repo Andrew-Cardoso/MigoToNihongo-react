@@ -32,10 +32,10 @@ const StyledCard = styled('div', {
 		},
 		size: {
 			sm: {
-				width: 'clamp(25rem, 35rem, 96vw)',
+				width: 'clamp(10rem, 35rem, 96vw)',
 			},
 			md: {
-				width: 'clamp(40rem, 60rem, 96vw)',
+				width: 'clamp(20rem, 60rem, 96vw)',
 			},
 			lg: {
 				width: '96vw',

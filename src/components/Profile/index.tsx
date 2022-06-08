@@ -1,4 +1,3 @@
-import {styled} from '@stitches/react';
 import {getRolesView, SignInTypeEnum, SignInTypeView} from '../../_api/models/admin';
 import {JWT, UpdatedUser} from '../../_api/models/auth';
 import {useAuth} from '../../_auth/hook';
@@ -15,6 +14,7 @@ import {FileInput} from '../FileInput';
 import {Avatar} from '../Avatar';
 import {SignOut} from 'phosphor-react';
 import {useToast} from '../../_toast/hook';
+import {styled} from '../../utils/breakpoints';
 
 const StyledContainer = styled('div', {
 	width: '100%',
@@ -26,6 +26,10 @@ const StyledNamePhotoContainer = styled('section', {
 	display: 'grid',
 	gap: '1rem',
 	gridTemplateColumns: '6rem 1fr',
+	'@smartphone': {
+		gridTemplateColumns: '1fr',
+		gridTemplateRows: '8rem 1fr'
+	}
 });
 
 type UpdateUserForm = Omit<UpdatedUser, 'currentPassword'> & {confirmPassword?: string};
