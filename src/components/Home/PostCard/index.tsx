@@ -9,7 +9,7 @@ export const PostCard = ({post}: Props) => {
 	return (
 		<Card id={post.id}>
 			<CardElements.Header>
-				<h1>Titulo</h1>
+				<h1>{post.title}</h1>
 			</CardElements.Header>
 			<CardElements.Content
 				dangerouslySetInnerHTML={{__html: post.content}}
