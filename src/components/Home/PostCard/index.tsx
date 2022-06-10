@@ -1,6 +1,12 @@
+import {styled} from '../../../utils/breakpoints';
 import {Post} from '../../../_api/models/posts';
 import {Card, CardElements} from '../../Card';
 import {Info} from './Info';
+
+const CardContent = styled(CardElements.Content, {
+	wordBreak: 'break-word',
+	hyphens: 'auto',
+});
 
 interface Props {
 	post: Post;
@@ -11,9 +17,7 @@ export const PostCard = ({post}: Props) => {
 			<CardElements.Header>
 				<h1>{post.title}</h1>
 			</CardElements.Header>
-			<CardElements.Content
-				dangerouslySetInnerHTML={{__html: post.content}}
-			></CardElements.Content>
+			<CardContent dangerouslySetInnerHTML={{__html: post.content}}></CardContent>
 			<CardElements.Content>
 				<Info author={post.author} datePosted={post.date} />
 			</CardElements.Content>
