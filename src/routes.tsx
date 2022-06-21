@@ -1,4 +1,4 @@
-import {HashRouter, Route, Routes as RouterRoutes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes as RouterRoutes} from 'react-router-dom';
 import {App} from './components/App';
 import {Home} from './components/Home';
 import {RequireAuth} from './_auth/route.guard';
@@ -13,7 +13,7 @@ const Admin = lazy(() => import('./components/Admin'));
 const ResetPassword = lazy(() => import('./components/ResetPassword'));
 
 export const Routes = () => (
-	<HashRouter>
+	<BrowserRouter>
 		<RouterRoutes>
 			<Route path='/' element={<App />}>
 				<Route index element={<Home />} />
@@ -69,5 +69,5 @@ export const Routes = () => (
 				/>
 			</Route>
 		</RouterRoutes>
-	</HashRouter>
+	</BrowserRouter>
 );
