@@ -12,7 +12,7 @@ const Admin = () => (
 		<Tabs
 			tabs={[
 				['Usuários', <Users />],
-				['Comentários', <h1>Nao implementado ainda</h1>],
+				// ['Comentários', <h1>Nao implementado ainda</h1>],
 			]}
 		/>
 	</AdminContainer>

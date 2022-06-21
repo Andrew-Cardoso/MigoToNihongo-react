@@ -69,7 +69,7 @@ export const Users = () => {
 	}, []);
 	return (
 		<Table titles={['foto', 'nome', 'email', 'autenticação', 'cargos']}>
-			{users.map((user, i) => (
+			{(users ?? []).map((user, i) => (
 				<UserCells index={i} updateRole={updateRole} user={user} key={i} />
 			))}
 		</Table>
