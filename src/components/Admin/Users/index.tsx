@@ -1,5 +1,5 @@
-import {styled} from '@stitches/react';
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState, Fragment} from 'react';
+import {styled} from '../../../utils/breakpoints';
 import {useAdminApi} from '../../../_api/api.hook';
 import {getRolesView, ROLES, RolesEnum, SignInTypeView, User} from '../../../_api/models/admin';
 import {useToast} from '../../../_toast/hook';
@@ -38,7 +38,7 @@ export const Users = () => {
 	return (
 		<Table titles={['foto', 'nome', 'email', 'autenticação', 'cargos']}>
 			{users.map(({name, roles, email, signInType, photo}, i) => (
-				<React.Fragment key={i}>
+				<Fragment key={i}>
 					<TableCell>
 						<Avatar alt={name} src={photo} size='sm' />
 					</TableCell>
@@ -49,7 +49,7 @@ export const Users = () => {
 						<RolesContainer>
 							{ROLES.map((role) => (
 								<Switch
-									key={role}
+									key={role + i}
 									onChange={updateRole(i, role)}
 									value={roles.includes(role)}
 									label={getRolesView(role)}
@@ -57,7 +57,7 @@ export const Users = () => {
 							))}
 						</RolesContainer>
 					</TableCell>
-				</React.Fragment>
+				</Fragment>
 			))}
 		</Table>
 	);
