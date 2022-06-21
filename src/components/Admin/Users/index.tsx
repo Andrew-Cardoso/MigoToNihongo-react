@@ -48,13 +48,12 @@ export const Users = () => {
 					<TableCell>
 						<RolesContainer>
 							{ROLES.map((role) => (
-								<h3>teste</h3>
-								// <Switch
-								// 	key={role}
-								// 	onChange={updateRole(i, role)}
-								// 	value={roles.includes(role)}
-								// 	label={getRolesView(role)}
-								// />
+								<Switch
+									key={role}
+									onChange={updateRole(i, role)}
+									value={roles.includes(role)}
+									label={getRolesView(role)}
+								/>
 							))}
 						</RolesContainer>
 					</TableCell>
