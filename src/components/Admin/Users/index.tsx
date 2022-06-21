@@ -31,7 +31,7 @@ const UserCells = ({
 		<TableCell>{email}</TableCell>
 		<TableCell>{SignInTypeView[signInType]}</TableCell>
 		<TableCell>
-			<RolesContainer>
+			{/* <RolesContainer>
 				{ROLES.map((role) => (
 					<Switch
 						key={role + index}
@@ -40,7 +40,7 @@ const UserCells = ({
 						label={getRolesView(role)}
 					/>
 				))}
-			</RolesContainer>
+			</RolesContainer> */}
 		</TableCell>
 	</>
 );
