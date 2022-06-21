@@ -1,6 +1,6 @@
 import {styled} from '@stitches/react';
 import {CSSProperties} from 'react';
-// import ReactSwitch from 'react-switch';
+import ReactSwitch from 'react-switch';
 
 const StyledLabel = styled('label', {
 	display: 'flex',
@@ -19,7 +19,7 @@ interface Props {
 export const Switch = ({value, onChange, label, style}: Props) => (
 	<div style={style ?? {}}>
 		<StyledLabel>
-			{/* <ReactSwitch
+			<ReactSwitch
 				onChange={(checked) => onChange(checked)}
 				checked={value}
 				height={22}
@@ -29,7 +29,7 @@ export const Switch = ({value, onChange, label, style}: Props) => (
 				onHandleColor='#fff'
 				offHandleColor='#fff'
 				handleDiameter={22}
-			/> */}
+			/>
 			<span>{label}</span>
 		</StyledLabel>
 	</div>
