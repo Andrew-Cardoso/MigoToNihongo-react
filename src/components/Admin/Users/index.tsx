@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, Fragment} from 'react';
 import {styled} from '../../../utils/breakpoints';
 import {useAdminApi} from '../../../_api/api.hook';
 import {getRolesView, ROLES, RolesEnum, SignInTypeView, User} from '../../../_api/models/admin';
@@ -12,38 +12,6 @@ const RolesContainer = styled('div', {
 	flexFlow: 'column',
 	gap: '.5rem',
 });
-
-interface UserCellsProps {
-	user: User;
-	index: number;
-	updateRole: (index: number, role: RolesEnum) => any;
-}
-const UserCells = ({
-	user: {name, roles, email, signInType, photo},
-	index,
-	updateRole,
-}: UserCellsProps) => (
-	<>
-		<TableCell>
-			<Avatar alt={name} src={photo} size='sm' />
-		</TableCell>
-		<TableCell>{name}</TableCell>
-		<TableCell>{email}</TableCell>
-		<TableCell>{SignInTypeView[signInType]}</TableCell>
-		<TableCell>
-			{/* <RolesContainer>
-				{ROLES.map((role) => (
-					<Switch
-						key={role + index}
-						onChange={updateRole(index, role)}
-						value={roles.includes(role)}
-						label={getRolesView(role)}
-					/>
-				))}
-			</RolesContainer> */}
-		</TableCell>
-	</>
-);
 
 export const Users = () => {
 	const api = useAdminApi();
@@ -69,8 +37,28 @@ export const Users = () => {
 	}, []);
 	return (
 		<Table titles={['foto', 'nome', 'email', 'autenticação', 'cargos']}>
-			{(users ?? []).map((user, i) => (
-				<UserCells index={i} updateRole={updateRole} user={user} key={i} />
+			{users.map(({name, roles, email, signInType, photo}, i) => (
+				<Fragment key={i}>
+					<TableCell>
+						<Avatar alt={name} src={photo} size='sm' />
+					</TableCell>
+					<TableCell>{name}</TableCell>
+					<TableCell>{email}</TableCell>
+					<TableCell>{SignInTypeView[signInType]}</TableCell>
+					<TableCell>
+						<RolesContainer>
+							{ROLES.map((role) => (
+								<h3>teste</h3>
+								// <Switch
+								// 	key={role}
+								// 	onChange={updateRole(i, role)}
+								// 	value={roles.includes(role)}
+								// 	label={getRolesView(role)}
+								// />
+							))}
+						</RolesContainer>
+					</TableCell>
+				</Fragment>
 			))}
 		</Table>
 	);
