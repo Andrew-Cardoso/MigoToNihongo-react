@@ -1,5 +1,6 @@
 import {styled} from '@stitches/react';
 import {useContext} from 'react';
+import {Spinner} from '../../Spinner';
 import {PostCard} from '../PostCard';
 import PostsContext from '../_contexts/posts.context';
 
@@ -12,12 +13,14 @@ const StyledContainer = styled('div', {
 });
 
 export const PostsContainer = () => {
-	const posts = useContext(PostsContext);
+	const [posts, loading] = useContext(PostsContext);
 	return (
 		<StyledContainer>
-			{posts.map((post) => (
-				<PostCard key={post.id} post={post} />
-			))}
+			{loading ? (
+				<Spinner adapt={true} />
+			) : (
+				posts.map((post) => <PostCard key={post.id} post={post} />)
+			)}
 		</StyledContainer>
 	);
 };

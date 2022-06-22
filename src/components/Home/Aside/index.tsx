@@ -64,7 +64,7 @@ const calculateAsideHeight = (el: HTMLElement | null) => {
 };
 
 const AsideNav = () => {
-	const posts = useContext(PostsContext);
+	const [posts] = useContext(PostsContext);
 	const asideRef = useRef<HTMLElement>(null);
 
 	useEffect(() => {

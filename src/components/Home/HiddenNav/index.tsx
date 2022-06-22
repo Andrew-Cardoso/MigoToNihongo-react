@@ -49,7 +49,7 @@ const AttachedButton = styled('button', {
 
 	'& > svg': {
 		transition: 'transform 100ms ease-in-out',
-		transform: 'scaleY(1.5) rotateZ(180deg)'
+		transform: 'scaleY(1.5) rotateZ(180deg)',
 	},
 
 	variants: {
@@ -58,7 +58,7 @@ const AttachedButton = styled('button', {
 				left: '80vw',
 				opacity: '1',
 				'& > svg': {
-					transform: 'scaleY(1.5) rotateZ(0)'
+					transform: 'scaleY(1.5) rotateZ(0)',
 				},
 			},
 		},
@@ -103,7 +103,7 @@ const StyledLinkTitle = styled('span', {
 });
 
 const HiddenNav = () => {
-	const posts = useContext(PostsContext);
+	const [posts] = useContext(PostsContext);
 	const [isOpen, toggle] = useState(false);
 
 	return (
