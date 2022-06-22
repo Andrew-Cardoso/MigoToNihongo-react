@@ -7,6 +7,10 @@ import {Avatar} from '../../Avatar';
 import {Switch} from '../../Switch';
 import {Table, TableCell} from '../../Table';
 
+interface Loading {
+	[key: string]: boolean;
+}
+
 const RolesContainer = styled('div', {
 	display: 'flex',
 	flexFlow: 'column',
@@ -17,12 +21,23 @@ export const Users = () => {
 	const api = useAdminApi();
 	const toast = useToast();
 	const [users, setUsers] = useState<User[]>([]);
+	const [loading, setLoading] = useState<Loading>({});
+
+	const load = {
+		start: (i: number, role: RolesEnum) => setLoading({...loading, [i + role]: true}),
+		end: (i: number, role: RolesEnum) => {
+			const loadingState = {...loading};
+			if (loadingState[i + role]) delete loadingState[i + role];
+			setLoading(loadingState);
+		},
+	};
 
 	const updateRole = (i: number, role: RolesEnum) => async (checked: boolean) => {
+		load.start(i, role);
 		const user = {...users[i]};
 		const roles = await api[checked ? 'addRole' : 'removeRole'](user.email, role);
 
-		if (!roles) return;
+		if (!roles) return load.end(i, role);
 
 		toast('success', <p>Cargos de {user.name.split(' ')[0]} atualizados</p>);
 		user.roles = roles;
@@ -30,6 +45,7 @@ export const Users = () => {
 		const updatedUsers = [...users];
 		updatedUsers.splice(i, 1, user);
 		setUsers(updatedUsers);
+		load.end(i, role);
 	};
 
 	useEffect(() => {
@@ -50,6 +66,7 @@ export const Users = () => {
 							{ROLES.map((role) => (
 								<Switch
 									key={role}
+									loading={loading[i + role]}
 									onChange={updateRole(i, role)}
 									value={roles.includes(role)}
 									label={getRolesView(role)}
