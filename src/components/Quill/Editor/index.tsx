@@ -1,10 +1,9 @@
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {styled} from '@stitches/react';
-import {useEffect, useState} from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import {FormElements} from '../../Form';
-
-const QuillEditor = ReactQuill as any;
+import {QuillHandler, useQuill} from './Toolbar/quill.hook';
+import {Modal} from '../../Modal';
+import {Input} from '../../Input';
 
 const StyledEditorContainer = styled('div', {
 	width: '100%',
@@ -15,26 +14,62 @@ const StyledEditorContainer = styled('div', {
 	color: 'var(--text-dark)',
 });
 
-interface Props {
-	value: string;
-	label: string;
-	onChange: (value: string) => any;
+export interface EditorHandle {
+	getValue(): string;
+	setValue(value: string): void;
 }
-export const Editor = ({onChange, value, label}: Props) => {
+
+interface Props {
+	label: string;
+}
+export const Editor = forwardRef(({label}: Props, ref) => {
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [quill, setQuill] = useState<QuillHandler>();
+	const [showModal, toggleModal] = useState(false);
+	const [meaning, setMeaning] = useState('');
+
+	const modalClosed = (saved: boolean) => {
+		saved && quill?.translate.add(meaning);
+		toggleModal(false);
+		setMeaning('');
+	};
+
 	useEffect(() => {
-		// Quill has a bug that creates two toolbars
-		setTimeout(() => {
-			const toolbars = document.querySelectorAll('.ql-toolbar.ql-snow');
-			toolbars.length > 1 && toolbars[0].remove();
-		});
+		const quillHandler = useQuill('editor');
+		setQuill(quillHandler);
+		quillHandler.translate.onClick(() => toggleModal(true));
 	}, []);
 
+	useImperativeHandle(ref, () => ({
+		getValue() {
+			return quill?.value.get();
+		},
+		setValue(value: string) {
+			quill?.value.set(value);
+		},
+	}));
+
 	return (
-		<FormElements.Container>
-			<FormElements.Label>{label}</FormElements.Label>
-			<StyledEditorContainer>
-				<QuillEditor theme='snow' value={value} onChange={onChange} />
-			</StyledEditorContainer>
-		</FormElements.Container>
+		<>
+			<FormElements.Container>
+				<FormElements.Label>{label}</FormElements.Label>
+				<StyledEditorContainer id='editor'></StyledEditorContainer>
+			</FormElements.Container>
+			<Modal
+				title='Significado'
+				onClose={modalClosed}
+				show={showModal}
+				saveButtonText='Salvar'
+			>
+				<>
+					<Input
+						ref={inputRef}
+						label='Digite o significado da palavra/frase'
+						onChange={(ev) => setMeaning(ev.currentTarget.value)}
+						value={meaning}
+					/>
+				</>
+			</Modal>
+		</>
 	);
-};
+});
